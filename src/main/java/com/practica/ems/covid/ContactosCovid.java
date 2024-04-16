@@ -230,31 +230,10 @@ public class ContactosCovid {
 	}
 
 	private PosicionPersona crearPosicionPersona(String[] data) {
-		PosicionPersona posicionPersona = new PosicionPersona();
-		String fecha = null, hora;
-		float latitud = 0, longitud;
-		for (int i = 1; i < Constantes.MAX_DATOS_LOCALIZACION; i++) {
-			String s = data[i];
-			switch (i) {
-			case 1:
-				posicionPersona.setDocumento(s);
-				break;
-			case 2:
-				fecha = data[i];
-				break;
-			case 3:
-				hora = data[i];
-				posicionPersona.setFechaPosicion(parsearFecha(fecha, hora));
-				break;
-			case 4:
-				latitud = Float.parseFloat(s);
-				break;
-			case 5:
-				longitud = Float.parseFloat(s);
-				posicionPersona.setCoordenada(new Coordenada(latitud, longitud));
-				break;
-			}
-		}
+		String fecha = data[2], hora = data[3];
+		float latitud = Float.parseFloat(data[4]), longitud = Float.parseFloat(data[5]);
+		Coordenada coordenada = new Coordenada(latitud, longitud);
+		PosicionPersona posicionPersona = new PosicionPersona(coordenada, data[1], parsearFecha(fecha, hora));
 		return posicionPersona;
 	}
 	
